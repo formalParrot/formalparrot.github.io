@@ -22,9 +22,10 @@
                 max-width: 700px;
                 font-size: 14px;
                 line-height: 1.6;
+                white-space: pre-wrap;
             }
 
-            #terminal::after {
+            .cursor::after {
                 content: "_";
                 animation: blink 1s infinite;
             }
@@ -43,32 +44,29 @@
         </style>
     </head>
     <body>
-        <div id="terminal"></div>
+        <div id="terminal" class="cursor"></div>
 
         <script>
-            if (sessionStorage.getItem("introPlayed")) {
-                window.location.href = "home.html";
-            }
+            //if (sessionStorage.getItem("introPlayed")) {
+            //    window.location.href = "home.html";
+            //}
+
+            const terminal = document.getElementById("terminal");
 
             const lines = [
                 "> booting portfolio system...",
                 "> loading developer profile...",
                 "> user: _justParrot",
-                "> role: frontend developer",
-                "> status: building cool stuff",
-                "> access granted.",
+                "> initializing modules...",
             ];
 
-            const terminal = document.getElementById("terminal");
             let lineIndex = 0;
             let charIndex = 0;
 
             function typeLine() {
                 if (lineIndex >= lines.length) {
-                    sessionStorage.setItem("introPlayed", "true");
-                    setTimeout(() => {
-                        window.location.href = "home.html";
-                    }, 1200);
+                    terminal.innerHTML += "\n> loading assets...\n";
+                    startLoadingBar();
                     return;
                 }
 
@@ -77,11 +75,43 @@
                     charIndex++;
                     setTimeout(typeLine, 25);
                 } else {
-                    terminal.innerHTML += "<br/>";
+                    terminal.innerHTML += "\n";
                     lineIndex++;
                     charIndex = 0;
                     setTimeout(typeLine, 400);
                 }
+            }
+
+            function startLoadingBar() {
+                let progress = 0;
+                const totalBlocks = 20;
+
+                const interval = setInterval(() => {
+                    progress++;
+
+                    const filled = Math.floor((progress / 100) * totalBlocks);
+                    const empty = totalBlocks - filled;
+
+                    const bar =
+                        "[" +
+                        "█".repeat(filled) +
+                        "░".repeat(empty) +
+                        `] ${progress}%`;
+
+                    const lines = terminal.innerHTML.split("\n");
+                    lines[lines.length - 1] = "> " + bar;
+                    terminal.innerHTML = lines.join("\n");
+
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        terminal.innerHTML += "\n> access granted.";
+                        sessionStorage.setItem("introPlayed", "true");
+
+                        setTimeout(() => {
+                            window.location.href = "home.html";
+                        }, 1000);
+                    }
+                }, 30);
             }
 
             typeLine();
