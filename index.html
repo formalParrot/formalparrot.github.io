@@ -47,9 +47,11 @@
         <div id="terminal" class="cursor"></div>
 
         <script>
-            //if (sessionStorage.getItem("introPlayed")) {
-            //    window.location.href = "home.html";
-            //}
+            const EVERY_TIME_INTRO = true;
+
+            if (!EVERY_TIME_INTRO && sessionStorage.getItem("introPlayed")) {
+                window.location.href = "home.html";
+            }
 
             const terminal = document.getElementById("terminal");
 
