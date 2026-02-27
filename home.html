@@ -53,6 +53,8 @@
                     "The unexamined life is not worth living."
                     <strong>- Socrates</strong>
                 </p>
+
+                <p id="clock-display" class="mt-2 text-foreground/90"></p>
             </div>
         </div>
 
@@ -176,5 +178,30 @@
         <footer class="text-center mt-10 text-sm text-foreground/60 mb-4">
             © 2026 _justParrot — Built using Franken UI
         </footer>
+        <script>
+            function updateClock() {
+                const now = new Date();
+
+                // Format the time for a specific timezone
+                const options = {
+                    timeZone: "Asia/Tbilisi", // Set desired timezone
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: true,
+                };
+
+                const formatter = new Intl.DateTimeFormat("en-US", options);
+                const timeString = formatter.format(now);
+
+                // Update the HTML element
+                document.getElementById("clock-display").textContent =
+                    timeString;
+            }
+
+            // Run immediately, then every second
+            updateClock();
+            setInterval(updateClock, 1000);
+        </script>
     </body>
 </html>
