@@ -69,6 +69,7 @@
                 <div class="mt-4">
                     <h2 class="text-2xl">Languages</h2>
                     <img
+                        id="icons1"
                         src="https://skillicons.dev/icons?i=html,css,js,py&perline=4"
                         class="mx-auto mt-4"
                     />
@@ -77,6 +78,7 @@
                 <div class="mt-6">
                     <h2 class="text-2xl">Social Platforms</h2>
                     <img
+                        id="icons2"
                         src="https://skillicons.dev/icons?i=discord,github&perline=4"
                         class="mx-auto mt-4"
                     />
@@ -85,6 +87,7 @@
                 <div class="mt-6">
                     <h2 class="text-2xl">Tools</h2>
                     <img
+                        id="icons3"
                         src="https://skillicons.dev/icons?i=vscode,bash,sqlite&perline=4"
                         class="mx-auto mt-4"
                     />
@@ -93,6 +96,7 @@
                 <div class="mt-6">
                     <h2 class="text-2xl">Operating Systems</h2>
                     <img
+                        id="icons4"
                         src="https://skillicons.dev/icons?i=apple,raspberrypi,linux,ubuntu&perline=4"
                         class="mx-auto mt-4"
                     />
@@ -175,8 +179,15 @@
                 </div>
             </div>
         </div>
+
         <footer class="text-center mt-10 text-sm text-foreground/60 mb-4">
             © 2026 _justParrot — Built using Franken UI
+            <button
+                id="themeToggle"
+                class="items-center uk-btn uk-btn-secondary uk-btn-icon m-4"
+            >
+                <uk-icon icon="palette"></uk-icon>
+            </button>
         </footer>
         <script>
             function updateClock() {
@@ -203,5 +214,7 @@
             updateClock();
             setInterval(updateClock, 1000);
         </script>
+        <script src="scripts/updateClock.js"></script>
+        <script src="scripts/theme.js" defer></script>
     </body>
 </html>
