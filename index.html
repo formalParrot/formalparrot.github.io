@@ -1,122 +1,86 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Initializing...</title>
+        <title>_justParrot</title>
+
+        <link rel="stylesheet" href="styles.css" />
 
         <style>
             body {
                 margin: 0;
-                background: #000;
-                color: #00ff88;
-                font-family: monospace;
+                background: hsl(var(--background));
+                color: hsl(var(--foreground));
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 height: 100vh;
+                overflow: hidden;
+                opacity: 0;
+                transition: opacity 0.6s ease;
             }
 
-            #terminal {
-                width: 90%;
-                max-width: 700px;
-                font-size: 14px;
-                line-height: 1.6;
-                white-space: pre-wrap;
+            .intro-container {
+                text-align: center;
+                opacity: 0;
+                transform: translateY(10px);
+                animation: fadeUp 1.2s ease forwards;
             }
 
-            .cursor::after {
-                content: "_";
-                animation: blink 1s infinite;
+            .intro-name {
+                font-size: 3rem;
+                font-weight: bold;
+                color: hsl(var(--primary));
             }
 
-            @keyframes blink {
-                0%,
-                50%,
-                100% {
+            .intro-sub {
+                margin-top: 1rem;
+                font-size: 1.1rem;
+                opacity: 0.8;
+            }
+
+            @keyframes fadeUp {
+                to {
                     opacity: 1;
+                    transform: translateY(0);
                 }
-                25%,
-                75% {
+            }
+
+            .fade-out {
+                animation: fadeOut 0.6s ease forwards;
+            }
+
+            @keyframes fadeOut {
+                to {
                     opacity: 0;
+                    transform: translateY(-10px);
                 }
             }
         </style>
     </head>
+
     <body>
-        <div id="terminal" class="cursor"></div>
+        <div class="intro-container" id="intro">
+            <div class="intro-name">_justParrot</div>
+            <div class="intro-sub">Frontend Developer</div>
+        </div>
 
         <script>
-            const EVERY_TIME_INTRO = true;
+            const intro = document.getElementById("intro");
 
-            if (!EVERY_TIME_INTRO && sessionStorage.getItem("introPlayed")) {
-                window.location.href = "home.html";
-            }
+            setTimeout(() => {
+                document.body.style.transition = "opacity 0.6s ease";
+                document.body.style.opacity = "0";
 
-            const terminal = document.getElementById("terminal");
+                setTimeout(() => {
+                    window.location.href = "home.html";
+                }, 600);
+            }, 1600);
 
-            const lines = [
-                "> booting into portfolio system...",
-                "> loading developer profile...",
-                "> user: _justParrot",
-                "> initializing...",
-            ];
-
-            let lineIndex = 0;
-            let charIndex = 0;
-
-            function typeLine() {
-                if (lineIndex >= lines.length) {
-                    terminal.innerHTML += "\n> loading assets...\n";
-                    startLoadingBar();
-                    return;
-                }
-
-                if (charIndex < lines[lineIndex].length) {
-                    terminal.innerHTML += lines[lineIndex][charIndex];
-                    charIndex++;
-                    setTimeout(typeLine, 25);
-                } else {
-                    terminal.innerHTML += "\n";
-                    lineIndex++;
-                    charIndex = 0;
-                    setTimeout(typeLine, 400);
-                }
-            }
-
-            function startLoadingBar() {
-                let progress = 0;
-                const totalBlocks = 20;
-
-                const interval = setInterval(() => {
-                    progress++;
-
-                    const filled = Math.floor((progress / 100) * totalBlocks);
-                    const empty = totalBlocks - filled;
-
-                    const bar =
-                        "[" +
-                        "█".repeat(filled) +
-                        "░".repeat(empty) +
-                        `] ${progress}%`;
-
-                    const lines = terminal.innerHTML.split("\n");
-                    lines[lines.length - 1] = "> " + bar;
-                    terminal.innerHTML = lines.join("\n");
-
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        terminal.innerHTML += "\n> access granted.";
-                        sessionStorage.setItem("introPlayed", "true");
-
-                        setTimeout(() => {
-                            window.location.href = "home.html";
-                        }, 1000);
-                    }
-                }, 30);
-            }
-
-            typeLine();
+            window.addEventListener("load", () => {
+                document.body.style.opacity = "1";
+            });
         </script>
     </body>
 </html>
