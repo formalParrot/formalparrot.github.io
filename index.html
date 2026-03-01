@@ -1,171 +1,122 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>_justParrot</title>
-        <link rel="stylesheet" href="styles.css" />
+        <title>Initializing...</title>
 
-        <!-- franken -->
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/franken-ui@2.1.2/dist/css/core.min.css"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/franken-ui@2.1.2/dist/css/utilities.min.css"
-        />
-        <script
-            src="https://cdn.jsdelivr.net/npm/franken-ui@2.1.2/dist/js/core.iife.js"
-            type="module"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/franken-ui@2.1.2/dist/js/icon.iife.js"
-            type="module"
-        ></script>
+        <style>
+            body {
+                margin: 0;
+                background: #000;
+                color: #00ff88;
+                font-family: monospace;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
 
-        <!-- icons -->
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
-        />
+            #terminal {
+                width: 90%;
+                max-width: 700px;
+                font-size: 14px;
+                line-height: 1.6;
+                white-space: pre-wrap;
+            }
+
+            .cursor::after {
+                content: "_";
+                animation: blink 1s infinite;
+            }
+
+            @keyframes blink {
+                0%,
+                50%,
+                100% {
+                    opacity: 1;
+                }
+                25%,
+                75% {
+                    opacity: 0;
+                }
+            }
+        </style>
     </head>
+    <body>
+        <div id="terminal" class="cursor"></div>
 
-    <body class="bg-background text-foreground">
-        <!-- Profile -->
-        <div
-            class="card flex items-center max-w-lg mx-auto p-6 rounded-xl shadow-lg my-6"
-        >
-            <img
-                src="assets/avatar.png"
-                alt="Profile"
-                class="w-32 h-32 rounded-full object-cover mr-4"
-                oncontextmenu="return false;"
-                draggable="false"
-            />
-            <div class="text-left">
-                <h1 class="text-4xl font-bold text-primary">_justParrot</h1>
-                <p class="mt-2 text-foreground/90">
-                    "The unexamined life is not worth living."
-                    <strong>- Socrates</strong>
-                </p>
-            </div>
-        </div>
+        <script>
+            const EVERY_TIME_INTRO = true;
 
-        <!-- Cards -->
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto items-start"
-        >
-            <!-- Left -->
-            <div class="card p-6 rounded-xl shadow-lg text-center">
-                <h1 class="text-4xl font-bold text-primary">Platforms I use</h1>
+            if (!EVERY_TIME_INTRO && sessionStorage.getItem("introPlayed")) {
+                window.location.href = "home.html";
+            }
 
-                <div class="mt-4">
-                    <h2 class="text-2xl">Languages</h2>
-                    <img
-                        src="https://skillicons.dev/icons?i=html,css,js,py&perline=4"
-                        class="mx-auto mt-4"
-                    />
-                </div>
+            const terminal = document.getElementById("terminal");
 
-                <div class="mt-6">
-                    <h2 class="text-2xl">Social Platforms</h2>
-                    <img
-                        src="https://skillicons.dev/icons?i=discord,github&perline=4"
-                        class="mx-auto mt-4"
-                    />
-                </div>
+            const lines = [
+                "> booting into portfolio system...",
+                "> loading developer profile...",
+                "> user: _justParrot",
+                "> initializing...",
+            ];
 
-                <div class="mt-6">
-                    <h2 class="text-2xl">Tools</h2>
-                    <img
-                        src="https://skillicons.dev/icons?i=vscode,bash,sqlite&perline=4"
-                        class="mx-auto mt-4"
-                    />
-                </div>
+            let lineIndex = 0;
+            let charIndex = 0;
 
-                <div class="mt-6">
-                    <h2 class="text-2xl">Operating Systems</h2>
-                    <img
-                        src="https://skillicons.dev/icons?i=apple,raspberrypi,linux,ubuntu&perline=4"
-                        class="mx-auto mt-4"
-                    />
-                </div>
-            </div>
+            function typeLine() {
+                if (lineIndex >= lines.length) {
+                    terminal.innerHTML += "\n> loading assets...\n";
+                    startLoadingBar();
+                    return;
+                }
 
-            <!-- Right -->
-            <div class="flex flex-col gap-4">
-                <!-- Contacts -->
-                <div class="card p-6 rounded-xl shadow-lg text-center">
-                    <h1 class="text-4xl font-bold text-primary">Contacts</h1>
-                    <p class="mt-2 text-foreground/90">Contact me via:</p>
+                if (charIndex < lines[lineIndex].length) {
+                    terminal.innerHTML += lines[lineIndex][charIndex];
+                    charIndex++;
+                    setTimeout(typeLine, 25);
+                } else {
+                    terminal.innerHTML += "\n";
+                    lineIndex++;
+                    charIndex = 0;
+                    setTimeout(typeLine, 400);
+                }
+            }
 
-                    <div class="flex flex-col items-center gap-4 mt-4">
-                        <button
-                            class="uk-btn uk-btn-default uk-btn-icon btn-discord w-40"
-                            onclick="
-                                navigator.clipboard.writeText('_justParrot');
-                                UIkit.notification({
-                                    message: '<div class=\'uk-text-center\'>Copied Discord Username</div>',
-                                    pos: 'top-center',
-                                    timeout: 5000
-                                });
-                            "
-                        >
-                            <uk-icon icon="copy"></uk-icon> Discord
-                        </button>
-                        <a
-                            class="uk-btn uk-btn-default w-40 border-none btn-github uk-btn-icon"
-                            href="https://github.com/formalParrot"
-                            target="_blank"
-                            ><uk-icon icon="link"></uk-icon>Github</a
-                        >
-                    </div>
-                </div>
+            function startLoadingBar() {
+                let progress = 0;
+                const totalBlocks = 20;
 
-                <!-- Projects -->
-                <div class="card p-6 rounded-xl shadow-lg text-center">
-                    <h1 class="text-4xl font-bold text-primary">Projects</h1>
-                    <ul class="uk-list uk-list-divider mt-4">
-                        <li>
-                            <a
-                                href="https://github.com/formalParrot/bigstone-laws"
-                                class="uk-link"
-                                target="_blank"
-                                >Bigstone Courthouse</a
-                            >
-                            <div
-                                class="uk-card uk-card-body uk-drop"
-                                data-uk-drop="mode: hover"
-                            >
-                                Courthouse's legal website, with built in legal
-                                minecraft chat recording. Has cases that have
-                                been filed stored inside, and any events appear
-                                there too.
-                            </div>
-                        </li>
-                        <li>
-                            <a
-                                href="https://github.com/formalParrot/noli-bot"
-                                class="uk-link"
-                                target="_blank"
-                                >Noli Discord Bot</a
-                            >
-                            <div
-                                class="uk-card uk-card-body uk-drop"
-                                data-uk-drop="mode: hover"
-                            >
-                                A discord bot with a themed user experience.
-                                Made for an upcoming game.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+                const interval = setInterval(() => {
+                    progress++;
+
+                    const filled = Math.floor((progress / 100) * totalBlocks);
+                    const empty = totalBlocks - filled;
+
+                    const bar =
+                        "[" +
+                        "█".repeat(filled) +
+                        "░".repeat(empty) +
+                        `] ${progress}%`;
+
+                    const lines = terminal.innerHTML.split("\n");
+                    lines[lines.length - 1] = "> " + bar;
+                    terminal.innerHTML = lines.join("\n");
+
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        terminal.innerHTML += "\n> access granted.";
+                        sessionStorage.setItem("introPlayed", "true");
+
+                        setTimeout(() => {
+                            window.location.href = "home.html";
+                        }, 1000);
+                    }
+                }, 30);
+            }
+
+            typeLine();
+        </script>
     </body>
 </html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>_justParrot</title>
+        <link rel="stylesheet" href="styles.css" />
+
+        <!-- franken -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/franken-ui@2.1.2/dist/css/core.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/franken-ui@2.1.2/dist/css/utilities.min.css"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/franken-ui@2.1.2/dist/js/core.iife.js"
+            type="module"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/franken-ui@2.1.2/dist/js/icon.iife.js"
+            type="module"
+        ></script>
+
+        <!-- icons -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+        />
+    </head>
+
+    <body class="bg-background text-foreground">
+        <!-- Profile -->
+        <div
+            class="card flex items-center max-w-lg mx-auto p-6 rounded-xl shadow-lg my-6"
+        >
+            <img
+                src="assets/avatar.png"
+                alt="Profile"
+                class="w-32 h-32 rounded-full object-cover mr-4"
+                oncontextmenu="return false;"
+                draggable="false"
+            />
+            <div class="text-left">
+                <h1 class="text-4xl font-bold text-primary">_justParrot</h1>
+                <p class="mt-2 text-foreground/90">
+                    "The unexamined life is not worth living."
+                    <strong>- Socrates</strong>
+                </p>
+
+                <p id="clock-display" class="mt-2 text-foreground/90"></p>
+            </div>
+        </div>
+
+        <!-- Cards -->
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto items-start"
+        >
+            <!-- Left -->
+            <div class="card p-6 rounded-xl shadow-lg text-center">
+                <h1 class="text-4xl font-bold text-primary">Platforms I use</h1>
+
+                <div class="mt-4">
+                    <h2 class="text-2xl">Languages</h2>
+                    <img
+                        id="icons1"
+                        src="https://skillicons.dev/icons?i=html,css,js,py&perline=4"
+                        class="mx-auto mt-4"
+                    />
+                </div>
+
+                <div class="mt-6">
+                    <h2 class="text-2xl">Social Platforms</h2>
+                    <img
+                        id="icons2"
+                        src="https://skillicons.dev/icons?i=discord,github&perline=4"
+                        class="mx-auto mt-4"
+                    />
+                </div>
+
+                <div class="mt-6">
+                    <h2 class="text-2xl">Tools</h2>
+                    <img
+                        id="icons3"
+                        src="https://skillicons.dev/icons?i=vscode,bash,sqlite&perline=4"
+                        class="mx-auto mt-4"
+                    />
+                </div>
+
+                <div class="mt-6">
+                    <h2 class="text-2xl">Operating Systems</h2>
+                    <img
+                        id="icons4"
+                        src="https://skillicons.dev/icons?i=apple,raspberrypi,linux,ubuntu&perline=4"
+                        class="mx-auto mt-4"
+                    />
+                </div>
+            </div>
+
+            <!-- Right -->
+            <div class="flex flex-col gap-4">
+                <!-- Contacts -->
+                <div class="card p-6 rounded-xl shadow-lg text-center">
+                    <h1 class="text-4xl font-bold text-primary">Contacts</h1>
+
+                    <div class="flex flex-col items-center gap-4 mt-4">
+                        <button
+                            class="uk-btn uk-btn-default uk-btn-icon btn-discord w-40"
+                            onclick="
+                                navigator.clipboard.writeText('_justParrot');
+                                UIkit.notification({
+                                    message: '<div class=\'uk-text-center\'>Copied Discord Username</div>',
+                                    pos: 'top-center',
+                                    timeout: 5000
+                                });
+                            "
+                        >
+                            <uk-icon icon="copy"></uk-icon> Discord
+                        </button>
+                        <a
+                            class="uk-btn uk-btn-default w-40 border-none btn-github uk-btn-icon"
+                            href="https://github.com/formalParrot"
+                            target="_blank"
+                            ><uk-icon icon="link"></uk-icon>Github</a
+                        >
+                    </div>
+                </div>
+
+                <!-- Projects -->
+                <div class="card p-6 rounded-xl shadow-lg text-center">
+                    <h1 class="text-4xl font-bold text-primary">Projects</h1>
+                    <ul class="uk-list uk-list-divider mt-4">
+                        <li>
+                            <a
+                                href="https://github.com/formalParrot/bigstone-laws"
+                                class="uk-link"
+                                target="_blank"
+                                >Bigstone Courthouse</a
+                            >
+                            <div
+                                class="uk-card uk-card-body uk-drop"
+                                data-uk-drop="mode: hover"
+                            >
+                                Courthouse's legal website, with built in legal
+                                minecraft chat recording. Has cases that have
+                                been filed stored inside, and any events appear
+                                there too.
+                            </div>
+                        </li>
+                        <li>
+                            <a
+                                href="https://github.com/formalParrot/noli-bot"
+                                class="uk-link"
+                                target="_blank"
+                                >Noli Discord Bot</a
+                            >
+                            <div
+                                class="uk-card uk-card-body uk-drop"
+                                data-uk-drop="mode: hover"
+                            >
+                                A discord bot with a themed user experience.
+                                Made for an upcoming game.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card p-6 rounded-xl shadow-lg text-center mb-4">
+                    <h1 class="text-4xl font-bold text-primary">Currently</h1>
+                    <p class="mt-4 text-foreground/90">
+                        Working on backend set up using a Raspberry Pi
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center mt-10 text-sm text-foreground/60 mb-4">
+            © 2026 _justParrot — Built using Franken UI
+            <button
+                id="themeToggle"
+                class="items-center uk-btn uk-btn-secondary uk-btn-icon m-4"
+            >
+                <uk-icon icon="palette"></uk-icon>
+            </button>
+        </footer>
+        <script>
+            function updateClock() {
+                const now = new Date();
+
+                // Format the time for a specific timezone
+                const options = {
+                    timeZone: "Asia/Tbilisi", // Set desired timezone
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: true,
+                };
+
+                const formatter = new Intl.DateTimeFormat("en-US", options);
+                const timeString = formatter.format(now);
+
+                // Update the HTML element
+                document.getElementById("clock-display").textContent =
+                    timeString;
+            }
+
+            // Run immediately, then every second
+            updateClock();
+            setInterval(updateClock, 1000);
+        </script>
+        <script src="scripts/updateClock.js"></script>
+        <script src="scripts/theme.js" defer></script>
+    </body>
+</html>
